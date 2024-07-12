@@ -1,18 +1,39 @@
-entrypoint = "main.py"
-modules = ["python-3.10:v18-20230807-322e88b"]
+# Function to determine admission based on test score and class rank
+def determine_admission(testScore, classRank):
+    if testScore >= 90:
+        if classRank >= 25:
+            return "Accept"
+        else:
+            return "Reject"
+    else:
+        if testScore >= 80:
+            if classRank >= 50:
+                return "Accept"
+            else:
+                return "Reject"
+        else:
+            if testScore >= 70:
+                if classRank >= 75:
+                    return "Accept"
+                else:
+                    return "Reject"
+            else:
+                return "Reject"
 
-[nix]
-channel = "stable-23_05"
+# Main code to interact with the user and process the input
+def main():
+    # Input test score and class rank from the user
+    testScoreString = input("Enter the test score: ")
+    classRankString = input("Enter the class rank: ")
 
-[env]
-VIRTUAL_ENV = "$REPL_HOME/.pythonlibs"
+    # Convert input strings to integers
+    testScore = int(testScoreString)
+    classRank = int(classRankString)
 
-[unitTest]
-language = "python3"
+    # Determine and print the admission decision
+    result = determine_admission(testScore, classRank)
+    print(result)
 
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix"]
-
-[deployment]
-run = ["python3", "main.py"]
-deploymentTarget = "cloudrun"
+# Run the main function
+if __name__ == "__main__":
+    main()
